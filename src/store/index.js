@@ -4,13 +4,23 @@ export const store = createStore({
   state: {
     users: [
       { id: 1, name: 'evgenii', admin: true },
-      { id: 2, name: 'alex', admin: true },
+      { id: 1, name: 'anny', admin: true },
+      { id: 2, name: 'alex', admin: false },
       { id: 3, name: 'garry', admin: false }
     ]
   },
   getters: {
-    getUsers(state) {
+    getAllUsers(state) {
       return state.users
+    },
+    getUsers(state) {
+      return state.users.filter(user => !user.admin)
+    },
+    getUserById: state => id => state.users.find(user => user.id == id),
+
+    getUsersLength(state, getters) {
+      const suffix = 'Кол-во пользователей:'
+      return `${suffix} ${getters.getAllUsers.length}`
     }
   }
 })
