@@ -2,6 +2,7 @@ import { createStore } from 'vuex';
 
 export const store = createStore({
   state: {
+    user: null,
     users: [
       { id: 1, name: 'evgenii', admin: true },
       { id: 1, name: 'anny', admin: true },
@@ -9,7 +10,32 @@ export const store = createStore({
       { id: 3, name: 'garry', admin: false }
     ]
   },
+
+  mutations: {
+    setUser(state, user) {
+      state.user = user
+    }
+  },
+  actions: {
+    setUser({ commit }) {
+      setTimeout(() => {
+        const fakeUser = {
+          id: 6843588,
+          name: 'fake',
+          admin: false
+        }
+        commit('setUser', fakeUser)
+        }, 1000)
+      }
+    },
+
   getters: {
+    isUserLogged(state) {
+      return state.user ? true : false
+    },
+    getUser(state) {
+      return state.user
+    },
     getAllUsers(state) {
       return state.users
     },

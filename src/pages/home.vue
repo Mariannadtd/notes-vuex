@@ -1,5 +1,19 @@
 <template>
-<h1>Только обычные пользователи:</h1>
+  <br />
+  <br />
+
+  <div v-if="isUserLogged">
+    User is logged
+    {{  user  }}
+  </div>
+  <div v-else>
+    <button @click="handleLoginClick" class="btn btnPrimary">Login</button>
+  </div>
+
+  <br />
+  <br />
+
+  <h1>Только обычные пользователи:</h1>
   <ul>
     <li v-for="user in getUsers" :key="user.id">
       <p>{{  user.id  }}</p>
@@ -27,12 +41,23 @@ export default {
       userId: 3
     }
   },
+  methods: {
+    handleLoginClick() {
+      this.$store.dispatch('setUser')
+    }
+  },
   computed: {
+    isUserLogged () {
+      return this.$store.getters.isUserLogged
+    },
+    user() {
+      return this.$store.getters.getUser
+    },
     getUser() {
       return this.$store.getters.getUserById(this.userId) || 'user not found'
     },
     getUsers() {
-      return this.$store.getters.getUser
+      return this.$store.getters.getUsers
     },
     getUsersLength() {
       return this.$store.getters.getUsersLength
