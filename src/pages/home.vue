@@ -1,37 +1,33 @@
 <template>
-  <br />
-  <br />
+  <section>
+    <div v-if="isUserLogged">
+      User is logged
+      {{  user  }}
+    </div>
+    <div v-else>
+      <button @click="handleLoginClick" class="btn btnPrimary">Login</button>
+    </div>
+  </section>
 
-  <div v-if="isUserLogged">
-    User is logged
-    {{  user  }}
-  </div>
-  <div v-else>
-    <button @click="handleLoginClick" class="btn btnPrimary">Login</button>
-  </div>
+  <section>
+    <h1>Только обычные пользователи:</h1>
+    <ul>
+      <li v-for="user in getUsers" :key="user.id">
+        <p>{{  user.id  }}</p>
+        <p>{{  user.name  }}</p>
+        <p>{{  user.admin ? 'Это админ' : 'Обычный юзер'  }}</p>
+      </li>
+    </ul>
+  </section>
 
-  <br />
-  <br />
+  <section>
+    <input v-model="userId" type="number" />
+    {{  getUser  }}
+  </section>
 
-  <h1>Только обычные пользователи:</h1>
-  <ul>
-    <li v-for="user in getUsers" :key="user.id">
-      <p>{{  user.id  }}</p>
-      <p>{{  user.name  }}</p>
-      <p>{{  user.admin ? 'Это админ' : 'Обычный юзер'  }}</p>
-    </li>
-  </ul>
-
-  <br />
-  <br />
-
-  <input v-model="userId" type="number" />
-  {{  getUser  }}
-
-  <br />
-  <br />
-
-  <p>{{  getUsersLength  }}</p>
+  <section>
+    <p>{{  getUsersLength  }}</p>
+  </section>
 </template>
 
 <script>
